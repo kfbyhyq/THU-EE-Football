@@ -2,8 +2,8 @@
    清华电子 · 比赛数据接口工厂
    ============================================================ */
 
-const DATA_VERSION_MEN   = 2;
-const DATA_VERSION_WOMEN = 2;
+const DATA_VERSION_MEN   = 3;
+const DATA_VERSION_WOMEN = 3;
 
 const DEPRECATED_STORAGE_KEYS = [
   'qf_fc_match_data_v1',

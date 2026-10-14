@@ -513,7 +513,7 @@
         },
 
         {
-            season: '2025', date: '2025-12-06 11:45',
+            season: '2025-2026', date: '2025-12-06 11:45',
             competition: '马女', stage: '小组赛', round: '第3轮',
             opponent: '新雅', venue: '西操', scoreFor: 0, scoreAgainst: 0,
             penaltyFor: 2, penaltyAgainst: 3,
@@ -530,7 +530,7 @@
         },
 
         {
-            season: '2026', date: '2026-03-15 10:00',
+            season: '2025-2026', date: '2026-03-15 10:00',
             competition: '马女', stage: '淘汰赛', round: '1/8决赛',
             opponent: '苏世民', venue: '紫操', scoreFor: 0, scoreAgainst: 5,
             players: [
