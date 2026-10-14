@@ -146,7 +146,9 @@ function aggregatePlayers(season) {
 
   matches.forEach(match => {
     const comp      = match.competition;
-    const stage     = match.stage || '小组赛';
+    const rawStage  = match.stage || '小组赛';
+    // 循环赛在统计时归入小组赛
+    const stage     = rawStage === '循环赛' ? '小组赛' : rawStage;
     const isPartial = match.partial === true;
 
     match.players.forEach(p => {

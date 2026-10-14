@@ -54,7 +54,7 @@ function createMatchDataAPI(storageKey, initialData, version) {
       errors.push('competition 应为 ' + VALID_COMPS.join(' / ') + '，当前值: ' + match.competition);
     }
 
-    const VALID_STAGES = ['小组赛', '淘汰赛'];
+    const VALID_STAGES = ['小组赛', '淘汰赛', '循环赛'];
     if (!isPartial && match.stage && !VALID_STAGES.includes(match.stage)) {
       errors.push('stage 应为 ' + VALID_STAGES.join(' / ') + '，当前值: ' + match.stage);
     }
