@@ -502,6 +502,10 @@ function buildTooltipHTML(player, type) {
   return `<div class="tooltip-title">${title}</div>${bodyHtml}${milestonesHtml}`;
 }
 
+function isMobileLayout() {
+  return window.matchMedia('(max-width: 640px)').matches;
+}
+
 function showTooltip(cell) {
   const playerName = cell.dataset.tooltipPlayer;
   const type       = cell.dataset.tooltipType;
@@ -509,8 +513,18 @@ function showTooltip(cell) {
   if (!player) return;
 
   tooltipEl.innerHTML = buildTooltipHTML(player, type);
-
   tooltipEl.classList.add('visible');
+  tooltipEl.dataset.key = playerName + '|' + type;
+
+  // ---- 手机端：交给 CSS 居中，跳过定位计算 ----
+  if (isMobileLayout()) {
+    tooltipEl.style.top  = '';
+    tooltipEl.style.left = '';
+    document.body.classList.add('tooltip-open');
+    return;
+  }
+
+  // ---- 桌面端：跟随单元格 ----
   const tipRect  = tooltipEl.getBoundingClientRect();
   const cellRect = cell.getBoundingClientRect();
 
@@ -527,7 +541,11 @@ function showTooltip(cell) {
   tooltipEl.style.left = left + 'px';
 }
 
-function hideTooltip() { tooltipEl.classList.remove('visible'); }
+function hideTooltip() {
+  tooltipEl.classList.remove('visible');
+  document.body.classList.remove('tooltip-open');
+  delete tooltipEl.dataset.key;
+}
 
 /* ============================================================
    赛季筛选器
@@ -818,13 +836,16 @@ function bindSortEvents() {
 function bindTooltipEvents() {
   const tbody = document.getElementById('players-tbody');
 
+  // ---- 桌面端：鼠标悬浮显示 / 移出隐藏 ----
   tbody.addEventListener('mouseover', e => {
+    if (isMobileLayout()) return;
     const cell = e.target.closest('[data-tooltip-player]');
     if (!cell) return;
     showTooltip(cell);
   });
 
   tbody.addEventListener('mouseout', e => {
+    if (isMobileLayout()) return;
     const cell = e.target.closest('[data-tooltip-player]');
     if (!cell) return;
     const related = e.relatedTarget;
@@ -832,8 +853,39 @@ function bindTooltipEvents() {
     hideTooltip();
   });
 
-  window.addEventListener('scroll', hideTooltip, true);
-  window.addEventListener('resize', hideTooltip);
+  // ---- 手机端：点击单元格 打开 / 关闭 ----
+  tbody.addEventListener('click', e => {
+    if (!isMobileLayout()) return;
+    const cell = e.target.closest('[data-tooltip-player]');
+    if (!cell) return;
+    e.stopPropagation();
+
+    const key = cell.dataset.tooltipPlayer + '|' + cell.dataset.tooltipType;
+    if (tooltipEl.classList.contains('visible') && tooltipEl.dataset.key === key) {
+      hideTooltip();
+    } else {
+      showTooltip(cell);
+    }
+  });
+
+  // ---- 手机端：点击浮窗之外关闭 ----
+  document.addEventListener('click', e => {
+    if (!isMobileLayout()) return;
+    if (!tooltipEl.classList.contains('visible')) return;
+    if (tooltipEl.contains(e.target)) return;
+    if (e.target.closest('[data-tooltip-player]')) return;
+    hideTooltip();
+  });
+
+  // 桌面端滚动 / 改变尺寸时隐藏
+  window.addEventListener('scroll', () => {
+    if (!isMobileLayout()) hideTooltip();
+  }, true);
+
+  window.addEventListener('resize', () => {
+    // 跨断点时清理状态，避免残留遮罩或错位
+    hideTooltip();
+  });
 }
 
 /* ============================================================
