@@ -550,6 +550,63 @@ function hideTooltip() {
 }
 
 /* ============================================================
+   表头信息图标：手机端点击查看统计说明
+   ------------------------------------------------------------
+   桌面端用 title 原生提示，图标隐藏；
+   手机端显示小图标，点击弹出说明。
+   ============================================================ */
+function injectInfoIcons() {
+  document.querySelectorAll('.players-table th.sortable').forEach(th => {
+    if (th.querySelector('.info-icon')) return; // 避免重复插入
+
+    // 提取列名（第一个非空文本节点）
+    let columnName = '';
+    for (const node of th.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        columnName = node.textContent.trim();
+        break;
+      }
+    }
+    th.dataset.columnName = columnName;
+
+    const icon = document.createElement('span');
+    icon.className = 'info-icon';
+    icon.textContent = 'i';
+    icon.setAttribute('aria-label', '查看统计起始日');
+
+    icon.addEventListener('click', e => {
+      e.stopPropagation();
+      e.preventDefault();
+      showInfoPopup(th);
+    });
+    // 阻止触摸时冒泡到 th（避免触发排序）
+    icon.addEventListener('touchstart', e => {
+      e.stopPropagation();
+    }, { passive: true });
+
+    th.appendChild(icon);
+  });
+}
+
+function showInfoPopup(th) {
+  const title = th.title;
+  if (!title) return;
+
+  const columnName = th.dataset.columnName || '数据';
+
+  tooltipEl.innerHTML = `
+    <div class="tooltip-title">${columnName} · 统计说明</div>
+    <div class="info-text">${title}</div>
+  `;
+  tooltipEl.classList.add('visible');
+  tooltipEl.dataset.key = 'info|' + columnName;
+
+  if (isMobileLayout()) {
+    document.body.classList.add('tooltip-open');
+  }
+}
+
+/* ============================================================
    赛季筛选器
    ============================================================ */
 function renderSeasonFilter(containerId, current, onSelect) {
@@ -990,6 +1047,7 @@ function init() {
 
   bindSortEvents();
   bindTooltipEvents();
+  injectInfoIcons();
 }
 
 init();

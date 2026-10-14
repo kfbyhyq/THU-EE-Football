@@ -862,32 +862,56 @@ body[data-gender="women"] .assists {
     z-index: 3;
     background: #0e1828;
   }
-
-  /* ---------- 球员数据：固定“号码”+“球员”两列 ---------- */
+  /* ---------- 球员数据：固定“号码”+“球员”两列，并限制宽度 ---------- */
+  /* 号码列：48px 固定 */
   .players-table thead th:nth-child(1),
-  .players-table tbody td:nth-child(1),
+  .players-table tbody td:nth-child(1) {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--card);
+    width: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    padding-left: 8px;
+    padding-right: 6px;
+    text-align: center;
+  }
+
+  .players-table thead th:nth-child(1) {
+    z-index: 3;
+    background: #0e1828;
+  }
+
+  /* 球员列：96px 固定，超出部分省略 */
   .players-table thead th:nth-child(2),
   .players-table tbody td:nth-child(2) {
     position: sticky;
+    left: 48px;
     z-index: 2;
     background: var(--card);
+    width: 96px;
+    min-width: 96px;
+    max-width: 96px;
+    padding-left: 8px;
+    padding-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.06);
   }
 
-  .players-table thead th:nth-child(1),
   .players-table thead th:nth-child(2) {
     z-index: 3;
     background: #0e1828;
   }
 
-  .players-table thead th:nth-child(1),
-  .players-table tbody td:nth-child(1) {
-    left: 0;
-  }
-
-  .players-table thead th:nth-child(2),
-  .players-table tbody td:nth-child(2) {
-    left: 54px;
-    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.06);
+  /* 号码列里的 shirt 徽章也略缩小，避免挤到 */
+  .players-table tbody td:nth-child(1) .shirt {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 5px;
+    font-size: 12px;
   }
 
   /* 触控反馈 */
@@ -937,4 +961,51 @@ body[data-gender="women"] .assists {
 @media (max-width: 360px) {
   .overview { grid-template-columns: repeat(2, 1fr); }
   .hero-info h1 { font-size: 17px; }
+}
+
+/* ========== 表头信息图标（仅手机端显示） ========== */
+.info-icon {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .players-table th.sortable {
+    position: relative;
+    padding-right: 18px !important;
+  }
+
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--accent);
+    font-size: 9px;
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .info-icon:active {
+    background: rgba(255, 255, 255, 0.32);
+  }
+
+  /* 弹层里的说明文字 */
+  .goal-tooltip .info-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.65;
+    word-break: break-word;
+  }
 }
