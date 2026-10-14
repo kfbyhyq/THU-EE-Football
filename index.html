@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>清华电子 · 球队数据中心</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-gender="men">
+<div class="page">
+
+  <header class="hero">
+    <div class="crest" id="crest">
+      <img id="crest-img" alt="队徽" />
+      <span class="crest-fallback" id="crest-text">THU</span>
+    </div>
+
+    <div class="hero-info">
+      <h1 id="team-name">清华电子男足</h1>
+      <p class="sub" id="team-sub">TSINGHUA ELECTRONICS FC · 男足 · 2024 – 2025</p>
+    </div>
+
+    <div class="gender-switch" id="gender-switch">
+      <button type="button" class="active" data-gender="men">男足</button>
+      <button type="button" data-gender="women">女足</button>
+    </div>
+  </header>
+
+  <section class="overview" aria-label="赛季数据概览">
+    <div class="stat total">    <span class="label">已赛</span><span class="value" id="stat-total">0</span></div>
+    <div class="stat win">      <span class="label">胜</span>  <span class="value" id="stat-win">0</span></div>
+    <div class="stat draw">     <span class="label">平</span>  <span class="value" id="stat-draw">0</span></div>
+    <div class="stat loss">     <span class="label">负</span>  <span class="value" id="stat-loss">0</span></div>
+    <div class="stat goal">     <span class="label">进球</span><span class="value" id="stat-goals">0</span></div>
+    <div class="stat conceded"> <span class="label">失球</span><span class="value" id="stat-conceded">0</span></div>
+  </section>
+
+  <section class="tabs">
+    <input type="radio" name="tab" id="tab-matches" checked>
+    <input type="radio" name="tab" id="tab-players">
+
+    <div class="tab-nav">
+      <label for="tab-matches">比赛记录</label>
+      <label for="tab-players">球员数据</label>
+    </div>
+
+    <div class="panels">
+
+      <div class="panel panel-matches">
+        <div class="card">
+          <div class="card-head">
+            <h2>比赛记录</h2>
+            <div class="card-head-right">
+              <div class="season-filter" id="matches-season-filter"></div>
+              <span class="hint" id="matches-hint">数据加载中…</span>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="matches-table">
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>赛事</th>
+                  <th>对手</th>
+                  <th class="c">场地</th>
+                  <th class="c">比分</th>
+                  <th class="c">结果</th>
+                </tr>
+              </thead>
+              <tbody id="matches-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-players">
+        <div class="card">
+          <div class="card-head">
+            <h2>球员赛季数据</h2>
+            <div class="card-head-right">
+              <div class="season-filter" id="players-season-filter"></div>
+              <span class="hint" id="players-hint">数据加载中…</span>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="players-table">
+              <thead>
+                <tr>
+                  <th class="c sortable" data-sort="shirt">号码</th>
+                  <th class="sortable" data-sort="name">球员</th>
+                  <th class="c sortable" data-sort="appearances">出场</th>
+                  <th class="c sortable" data-sort="starter">首发/替补 <span class="sort-mode"></span></th>
+                  <th class="c sortable" data-sort="minutes">出场时间</th>
+                  <th class="c sortable" data-sort="goals">进球</th>
+                  <th class="c sortable" data-sort="assists">助攻</th>
+                  <th class="c sortable" data-sort="ownGoals">乌龙球</th>
+                  <th class="c sortable" data-sort="yellow">黄牌</th>
+                  <th class="c sortable" data-sort="red">红牌</th>
+                </tr>
+              </thead>
+              <tbody id="players-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="foot" id="foot-note">数据加载中…</p>
+
+</div>
+
+<script src="data-men.js"></script>
+<script src="data-women.js"></script>
+<script src="data-api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
