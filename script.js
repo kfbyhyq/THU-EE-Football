@@ -678,9 +678,13 @@ function renderOverview() {
 function renderMatches() {
     const tbody = document.getElementById('matches-tbody');
 
+    // 完全按录入顺序的倒序排列（录入从早到晚 → 展示从晚到早）
+    const list = currentApi.getList();
+    const idxOf = m => list.indexOf(m);
+
     const filtered = filterMatches(matchSeasonFilter)
         .slice()
-        .sort((a, b) => b.date.localeCompare(a.date));
+        .sort((a, b) => b.id - a.id);
 
     tbody.innerHTML = filtered.map(m => {
         const result = getResult(m);

@@ -2,7 +2,7 @@
    清华电子 · 比赛数据接口工厂
    ============================================================ */
 
-const DATA_VERSION_MEN   = 3;
+const DATA_VERSION_MEN = 3;
 const DATA_VERSION_WOMEN = 3;
 
 const DEPRECATED_STORAGE_KEYS = [
@@ -18,7 +18,7 @@ function createMatchDataAPI(storageKey, initialData, version) {
   const hasStorage = (function () {
     try {
       return typeof localStorage !== 'undefined'
-          && typeof localStorage.setItem === 'function';
+        && typeof localStorage.setItem === 'function';
     } catch (e) { return false; }
   })();
 
@@ -64,10 +64,10 @@ function createMatchDataAPI(storageKey, initialData, version) {
       errors.push('venue 应为 ' + VALID_VENUES.join(' / ') + '，当前值: ' + match.venue);
     }
 
-    if (typeof match.scoreFor !== 'number')     errors.push('scoreFor 必须是数字');
+    if (typeof match.scoreFor !== 'number') errors.push('scoreFor 必须是数字');
     if (typeof match.scoreAgainst !== 'number') errors.push('scoreAgainst 必须是数字');
 
-    const hasPenFor     = match.penaltyFor     != null;
+    const hasPenFor = match.penaltyFor != null;
     const hasPenAgainst = match.penaltyAgainst != null;
     if (hasPenFor !== hasPenAgainst) {
       errors.push('penaltyFor 与 penaltyAgainst 必须同时存在或同时不存在');
@@ -122,8 +122,8 @@ function createMatchDataAPI(storageKey, initialData, version) {
       const parsed = JSON.parse(raw);
 
       if (parsed && typeof parsed === 'object'
-          && parsed.__version === version
-          && parsed.__data && typeof parsed.__data === 'object') {
+        && parsed.__version === version
+        && parsed.__data && typeof parsed.__data === 'object') {
         data = parsed.__data;
         return true;
       }
@@ -132,7 +132,7 @@ function createMatchDataAPI(storageKey, initialData, version) {
       return false;
     } catch (e) {
       console.warn('[MatchDataAPI:' + storageKey + '] 读取失败:', e);
-      try { localStorage.removeItem(storageKey); } catch (_) {}
+      try { localStorage.removeItem(storageKey); } catch (_) { }
       return false;
     }
   }
@@ -158,7 +158,7 @@ function createMatchDataAPI(storageKey, initialData, version) {
   (function cleanDeprecated() {
     if (!hasStorage) return;
     DEPRECATED_STORAGE_KEYS.forEach(k => {
-      try { localStorage.removeItem(k); } catch (e) {}
+      try { localStorage.removeItem(k); } catch (e) { }
     });
   })();
 
@@ -178,26 +178,32 @@ function createMatchDataAPI(storageKey, initialData, version) {
     P: function (name, shirt, opts = {}) {
       return {
         name, shirt,
-        subOn:     opts.subOn     ?? null,
-        subOff:    opts.subOff    ?? null,
-        goals:     opts.goals     ?? 0,
+        subOn: opts.subOn ?? null,
+        subOff: opts.subOff ?? null,
+        goals: opts.goals ?? 0,
         penalties: opts.penalties ?? 0,
-        assists:   opts.assists   ?? 0,
-        ownGoals:  opts.ownGoals  ?? 0,
-        yellow:    opts.yellow    ?? 0,
-        red:       opts.red       ?? 0
+        assists: opts.assists ?? 0,
+        ownGoals: opts.ownGoals ?? 0,
+        yellow: opts.yellow ?? 0,
+        red: opts.red ?? 0
       };
     },
 
-    getAll()      { return clone(data); },
-    getList()     {
+    getAll() { return clone(data); },
+    getList() {
       return Object.entries(data).map(([id, m]) => ({ id: Number(id), ...clone(m) }));
     },
-    getById(id)   { return data[id] ? clone(data[id]) : null; },
-    getBySeason(s){ return Object.entries(data)
-                      .filter(([, m]) => m.season === s)
-                      .map(([id, m]) => ({ id: Number(id), ...clone(m) })); },
-    getSeasons()  {
+    getById(id) { return data[id] ? clone(data[id]) : null; },
+    getBySeason(s) {
+      return Object.entries(data)
+        .filter(([, m]) => m.season === s)
+        .map(([id, m]) => {
+          // 不 clone，直接在原对象上挂 id，返回原引用
+          m.id = Number(id);
+          return m;
+        });
+    },
+    getSeasons() {
       const set = new Set(Object.values(data).map(m => m.season));
       return Array.from(set).sort().reverse();
     },
@@ -281,7 +287,7 @@ function createMatchDataAPI(storageKey, initialData, version) {
       });
 
       if (opts.merge) Object.assign(data, clone(normalized));
-      else            data = clone(normalized);
+      else data = clone(normalized);
 
       saveToStorage(); notify();
       return Object.keys(normalized).length;
@@ -331,7 +337,7 @@ const MatchDataAPIWomen = createMatchDataAPI(
 );
 
 if (typeof window !== 'undefined') {
-  window.MatchDataAPIMen   = MatchDataAPIMen;
+  window.MatchDataAPIMen = MatchDataAPIMen;
   window.MatchDataAPIWomen = MatchDataAPIWomen;
 }
 

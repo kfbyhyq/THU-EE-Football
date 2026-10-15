@@ -31,9 +31,107 @@
     }
 
     window.DATA_MEN = [
+        /* 2000-2001 甲级 */
+        {
+            season: '2000-2001', date: '2000',
+            competition: '甲级', stage: '小组赛', round: '第1轮',
+            opponent: '数学', venue: '', scoreFor: 5, scoreAgainst: 0,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2000-2001', date: '2000',
+            competition: '甲级', stage: '小组赛', round: '第2轮',
+            opponent: '建筑', venue: '', scoreFor: 0, scoreAgainst: 2,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2000-2001', date: '2000',
+            competition: '甲级', stage: '小组赛', round: '第3轮',
+            opponent: '大专', venue: '', scoreFor: 2, scoreAgainst: 1,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2000-2001', date: '2001',
+            competition: '甲级', stage: '淘汰赛', round: '1/4决赛',
+            opponent: '精仪', venue: '', scoreFor: 0, scoreAgainst: 5,
+            partial: true,
+            players: []
+        },
+
+        /* 2001-2002 甲级 */
+        {
+            season: '2001-2002', date: '2001',
+            competition: '甲级', stage: '小组赛', round: '第1轮',
+            opponent: '经管', venue: '', scoreFor: 1, scoreAgainst: 1,
+            partial: true,
+            players: [
+                { name: '王萌', goals: 1 }
+            ]
+        },
+
+        {
+            season: '2001-2002', date: '2001',
+            competition: '甲级', stage: '小组赛', round: '第2轮',
+            opponent: '电机', venue: '', scoreFor: 1, scoreAgainst: 0,
+            partial: true,
+            players: [
+                { name: '李昕', goals: 1 }
+            ]
+        },
+
+        {
+            season: '2001-2002', date: '2001',
+            competition: '甲级', stage: '小组赛', round: '第3轮',
+            opponent: '化工', venue: '', scoreFor: 1, scoreAgainst: 1,
+            partial: true,
+            players: [
+                { name: '宋小康', goals: 1 }
+            ]
+        },
+
+        {
+            season: '2001-2002', date: '2002',
+            competition: '甲级', stage: '淘汰赛', round: '1/4决赛',
+            opponent: '建筑', venue: '', scoreFor: 2, scoreAgainst: 0,
+            partial: true,
+            players: [
+                { name: '张阳', goals: 1 },
+                { name: '王萌', goals: 1 }
+            ]
+        },
+
+        {
+            season: '2001-2002', date: '2002',
+            competition: '甲级', stage: '淘汰赛', round: '半决赛',
+            opponent: '自动化', venue: '', scoreFor: 2, scoreAgainst: 2,
+            extraTime: true, penaltyFor: 5, penaltyAgainst: 4, 
+            partial: true,
+            players: [
+                { name: '张丹', goals: 1 },
+                { name: '吴舒伟', goals: 1 }
+            ]
+        },
+
+        {
+            season: '2001-2002', date: '2002',
+            competition: '甲级', stage: '淘汰赛', round: '决赛',
+            opponent: '电机', venue: '东操', scoreFor: 0, scoreAgainst: 1,
+            partial: true,
+            players: [
+                { name: '王萌', red: 1 },
+                { name: '吴舒伟', goals: 1 }
+            ]
+        },
+
         /* 2012-2013 甲级 只有比分 */
         {
-            season: '2012-2013', date: '',
+            season: '2012-2013', date: '2012',
             competition: '甲级', stage: '小组赛', round: '第1轮',
             opponent: '化工', venue: '', scoreFor: 1, scoreAgainst: 0,
             partial: true,
@@ -41,7 +139,7 @@
         },
 
         {
-            season: '2012-2013', date: '',
+            season: '2012-2013', date: '2012',
             competition: '甲级', stage: '小组赛', round: '第2轮',
             opponent: '美院', venue: '', scoreFor: 1, scoreAgainst: 0,
             partial: true,
@@ -49,7 +147,7 @@
         },
 
         {
-            season: '2012-2013', date: '',
+            season: '2012-2013', date: '2012',
             competition: '甲级', stage: '小组赛', round: '第3轮',
             opponent: '核研', venue: '', scoreFor: 0, scoreAgainst: 0,
             partial: true,
@@ -57,7 +155,7 @@
         },
 
         {
-            season: '2012-2013', date: '',
+            season: '2012-2013', date: '2013',
             competition: '甲级', stage: '淘汰赛', round: '1/4决赛',
             opponent: '材料', venue: '', scoreFor: 3, scoreAgainst: 2,
             partial: true,
@@ -65,7 +163,7 @@
         },
 
         {
-            season: '2012-2013', date: '',
+            season: '2012-2013', date: '2013',
             competition: '甲级', stage: '淘汰赛', round: '半决赛',
             opponent: '车辆', venue: '', scoreFor: 0, scoreAgainst: 1,
             partial: true,
@@ -73,7 +171,7 @@
         },
 
         {
-            season: '2012-2013', date: '',
+            season: '2012-2013', date: '2013',
             competition: '甲级', stage: '淘汰赛', round: '季军决赛',
             opponent: '核研', venue: '', scoreFor: 4, scoreAgainst: 0,
             partial: true,
@@ -82,7 +180,7 @@
 
         /* 2013-2014 甲级 只有比分 */
         {
-            season: '2013-2014', date: '',
+            season: '2013-2014', date: '2013',
             competition: '甲级', stage: '小组赛', round: '第1轮',
             opponent: '土木', venue: '', scoreFor: 3, scoreAgainst: 1,
             partial: true,
@@ -90,7 +188,7 @@
         },
 
         {
-            season: '2013-2014', date: '',
+            season: '2013-2014', date: '2013',
             competition: '甲级', stage: '小组赛', round: '第2轮',
             opponent: '计算机', venue: '', scoreFor: 0, scoreAgainst: 1,
             partial: true,
@@ -98,7 +196,7 @@
         },
 
         {
-            season: '2013-2014', date: '',
+            season: '2013-2014', date: '2013',
             competition: '甲级', stage: '小组赛', round: '第3轮',
             opponent: '自动化', venue: '', scoreFor: 1, scoreAgainst: 1,
             partial: true,
@@ -106,7 +204,7 @@
         },
 
         {
-            season: '2013-2014', date: '',
+            season: '2013-2014', date: '2014',
             competition: '甲级', stage: '淘汰赛', round: '1/4决赛',
             opponent: '机械', venue: '', scoreFor: 2, scoreAgainst: 1,
             partial: true,
@@ -114,7 +212,7 @@
         },
 
         {
-            season: '2013-2014', date: '',
+            season: '2013-2014', date: '2014',
             competition: '甲级', stage: '淘汰赛', round: '半决赛',
             opponent: '环境', venue: '', scoreFor: 1, scoreAgainst: 3,
             partial: true,
@@ -122,7 +220,7 @@
         },
 
         {
-            season: '2013-2014', date: '',
+            season: '2013-2014', date: '2014',
             competition: '甲级', stage: '淘汰赛', round: '季军决赛',
             opponent: '计算机', venue: '', scoreFor: 0, scoreAgainst: 3,
             partial: true,
