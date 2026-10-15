@@ -15,6 +15,20 @@ function getFullTime() {
 }
 
 /* ============================================================
+   比赛战报图片配置
+   ------------------------------------------------------------
+   REPORT_FOLDERS  男足/女足图片所在文件夹
+   REPORT_FORMATS  尝试的图片后缀（按顺序），文件不存在则跳过
+   REPORT_BASE     URL 前缀，默认相对站点根目录，可按需修改
+   ============================================================ */
+const REPORT_FOLDERS = { men: 'male', women: 'female' };
+const REPORT_FORMATS = ['jpg', 'png'];
+const REPORT_BASE = '';
+
+// 命中结果缓存：'none' 表示确认无战报
+const reportCache = new Map();
+
+/* ============================================================
    全局状态
    ============================================================ */
 let currentGender = 'men';
@@ -60,7 +74,7 @@ const TEAM_META = {
         crestFallback: 'THU',
         crestImg: '电子女足队徽-周围透明.png',
         name: '清华电子女足',
-        sub: 'THU EE FC · 女足'
+        sub: 'THU EE LADIES FC · 女足'
     }
 };
 
@@ -142,21 +156,6 @@ function aggregatePlayers(season) {
         .sort((a, b) => a.date.localeCompare(b.date));
 
     const fullTime = getFullTime();
-
-    /* ============================================================
-       比赛战报图片配置
-       ------------------------------------------------------------
-       REPORT_FOLDERS  男足/女足图片所在文件夹
-       REPORT_FORMATS  尝试的图片后缀（按顺序），文件不存在则跳过
-       REPORT_BASE     URL 前缀，默认相对站点根目录，可按需修改
-       ============================================================ */
-    const REPORT_FOLDERS = { men: 'male', women: 'female' };
-    const REPORT_FORMATS = ['jpg', 'png'];
-    const REPORT_BASE = '';
-
-    // 命中结果缓存：'none' 表示确认无战报
-    const reportCache = new Map();
-
     const map = new Map();
 
     matches.forEach(match => {
