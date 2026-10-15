@@ -628,7 +628,8 @@ function renderSeasonFilter(containerId, current, onSelect) {
     const options = ['all', ...currentApi.getSeasons()];
 
     container.innerHTML = options.map(s => {
-        const label = s === 'all' ? '全部' : s + ' 赛季';
+        const label = s === 'all' ? '全部'
+            : s.replace(/(\d{2})(\d{2})-(\d{2})(\d{2})/, '$1-$2');
         const cls = s === current ? 'active' : '';
         return `<button type="button" class="${cls}" data-season="${s}">${label}</button>`;
     }).join('');
