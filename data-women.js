@@ -18,7 +18,7 @@
         };
     }
 
-    window.QF_DATA_WOMEN = [
+    window.DATA_WOMEN = [
 
         /* 2015-2016 只有进球数据 */
         {

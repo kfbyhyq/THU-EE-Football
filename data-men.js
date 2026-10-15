@@ -30,7 +30,7 @@
         };
     }
 
-    window.QF_DATA_MEN = [
+    window.DATA_MEN = [
 
         /* 2014-2015 甲级 只有进球数据 */
         {

@@ -74,7 +74,7 @@ const TEAM_META = {
         crestFallback: 'THU',
         crestImg: '电子女足队徽-周围透明.png',
         name: '清华电子女足',
-        sub: 'THU EE LADIES FC · 女足'
+        sub: 'THU EE FC · 女足'
     }
 };
 
@@ -1054,10 +1054,25 @@ function renderAll() {
 }
 
 function updateFootNote() {
-    const dates = currentApi.getList().map(m => m.date).sort();
-    const latest = dates[dates.length - 1] || '—';
+    // 比较两队数据，取更晚的那个更新日期
+    const menDates = (window.DATA_MEN || []).map(m => m.date).sort();
+    const womenDates = (window.DATA_WOMEN || []).map(m => m.date).sort();
+    const menLatest = menDates[menDates.length - 1] || '';
+    const womenLatest = womenDates[womenDates.length - 1] || '';
+
+    // 字符串比较对 "YYYY-MM-DD" 格式有效
+    let latest = '';
+    if (menLatest && womenLatest) {
+        latest = menLatest > womenLatest ? menLatest : womenLatest;
+    } else {
+        latest = menLatest || womenLatest || '—';
+    }
+
+    // 只保留日期部分，去掉"几点几分"
+    latest = String(latest).split(' ')[0];
+
     document.getElementById('foot-note').textContent =
-        `数据更新于 ${latest} · 悬停表头可查看统计起始日 · 悬停数据可查看按赛事分布`;
+        `数据更新至 ${latest}`;
 }
 
 /* ============================================================

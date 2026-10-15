@@ -21,13 +21,13 @@
     <!--
   版本检测脚本：
   1. 用同步 XHR 拉取 version.json（带时间戳，绕过 HTTP 缓存）
-  2. 若远端版本与本地记录不同 → 清空所有 qf_fc_* 缓存 → 带版本号强制刷新
-  3. 若相同或首次访问 → 把版本号挂到 window.__QF_VERSION__，
+  2. 若远端版本与本地记录不同 → 清空所有 fc_* 缓存 → 带版本号强制刷新
+  3. 若相同或首次访问 → 把版本号挂到 window.__VERSION__，
      供下面动态加载 CSS / JS 时加上 ?v=xxx
 -->
     <script>
         (function () {
-            var VER_KEY = 'qf_fc_page_version';
+            var VER_KEY = 'fc_page_version';
             var localVer = null;
             try { localVer = localStorage.getItem(VER_KEY); } catch (e) { }
 
@@ -47,7 +47,7 @@
             if (remoteVer && localVer && localVer !== remoteVer) {
                 try {
                     Object.keys(localStorage).forEach(function (k) {
-                        if (k.indexOf('qf_fc_') === 0) localStorage.removeItem(k);
+                        if (k.indexOf('fc_') === 0) localStorage.removeItem(k);
                     });
                 } catch (e) { }
                 try { localStorage.setItem(VER_KEY, remoteVer); } catch (e) { }
@@ -59,14 +59,14 @@
                 try { localStorage.setItem(VER_KEY, remoteVer); } catch (e) { }
             }
 
-            window.__QF_VERSION__ = remoteVer || String(Date.now());
+            window.__VERSION__ = remoteVer || String(Date.now());
         })();
     </script>
 
     <!-- 动态加载带版本号的 CSS -->
     <script>
         (function () {
-            var v = window.__QF_VERSION__;
+            var v = window.__VERSION__;
             var link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = 'styles.css?v=' + encodeURIComponent(v);
@@ -198,7 +198,7 @@
     <!-- 动态加载带版本号的 JS（按顺序） -->
     <script>
         (function () {
-            var v = window.__QF_VERSION__;
+            var v = window.__VERSION__;
             var files = [
                 'data-men.js',
                 'data-women.js',

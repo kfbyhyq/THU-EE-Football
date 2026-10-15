@@ -6,11 +6,11 @@ const DATA_VERSION_MEN   = 3;
 const DATA_VERSION_WOMEN = 3;
 
 const DEPRECATED_STORAGE_KEYS = [
-  'qf_fc_match_data_v1',
-  'qf_fc_match_data_men_v1',
-  'qf_fc_match_data_women_v1',
-  'qf_fc_match_data_men',
-  'qf_fc_match_data_women'
+  'fc_match_data_v1',
+  'fc_match_data_men_v1',
+  'fc_match_data_women_v1',
+  'fc_match_data_men',
+  'fc_match_data_women'
 ];
 
 function createMatchDataAPI(storageKey, initialData, version) {
@@ -319,14 +319,14 @@ function createMatchDataAPI(storageKey, initialData, version) {
    创建男足、女足两个独立实例
    ============================================================ */
 const MatchDataAPIMen = createMatchDataAPI(
-  'qf_fc_match_data_men',
-  (typeof window !== 'undefined' && window.QF_DATA_MEN) || null,
+  'fc_match_data_men',
+  (typeof window !== 'undefined' && window.DATA_MEN) || null,
   DATA_VERSION_MEN
 );
 
 const MatchDataAPIWomen = createMatchDataAPI(
-  'qf_fc_match_data_women',
-  (typeof window !== 'undefined' && window.QF_DATA_WOMEN) || null,
+  'fc_match_data_women',
+  (typeof window !== 'undefined' && window.DATA_WOMEN) || null,
   DATA_VERSION_WOMEN
 );
 
