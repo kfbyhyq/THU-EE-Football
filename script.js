@@ -96,7 +96,7 @@ const TEAM_META = {
    ============================================================ */
 const COLUMN_TITLE_OVERRIDES = {
     men: {
-        goals: '',
+        goals: '统计数据自 2014年10月18日 起',
         assists: '统计数据自 2016年3月7日 起',
         appearances: '',
         cards: ''

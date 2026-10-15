@@ -31,6 +31,103 @@
     }
 
     window.DATA_MEN = [
+        /* 2012-2013 甲级 只有比分 */
+        {
+            season: '2012-2013', date: '',
+            competition: '甲级', stage: '小组赛', round: '第1轮',
+            opponent: '化工', venue: '', scoreFor: 1, scoreAgainst: 0,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2012-2013', date: '',
+            competition: '甲级', stage: '小组赛', round: '第2轮',
+            opponent: '美院', venue: '', scoreFor: 1, scoreAgainst: 0,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2012-2013', date: '',
+            competition: '甲级', stage: '小组赛', round: '第3轮',
+            opponent: '核研', venue: '', scoreFor: 0, scoreAgainst: 0,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2012-2013', date: '',
+            competition: '甲级', stage: '淘汰赛', round: '1/4决赛',
+            opponent: '材料', venue: '', scoreFor: 3, scoreAgainst: 2,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2012-2013', date: '',
+            competition: '甲级', stage: '淘汰赛', round: '半决赛',
+            opponent: '车辆', venue: '', scoreFor: 0, scoreAgainst: 1,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2012-2013', date: '',
+            competition: '甲级', stage: '淘汰赛', round: '季军决赛',
+            opponent: '核研', venue: '', scoreFor: 4, scoreAgainst: 0,
+            partial: true,
+            players: []
+        },
+
+        /* 2013-2014 甲级 只有比分 */
+        {
+            season: '2013-2014', date: '',
+            competition: '甲级', stage: '小组赛', round: '第1轮',
+            opponent: '土木', venue: '', scoreFor: 3, scoreAgainst: 1,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2013-2014', date: '',
+            competition: '甲级', stage: '小组赛', round: '第2轮',
+            opponent: '计算机', venue: '', scoreFor: 0, scoreAgainst: 1,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2013-2014', date: '',
+            competition: '甲级', stage: '小组赛', round: '第3轮',
+            opponent: '自动化', venue: '', scoreFor: 1, scoreAgainst: 1,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2013-2014', date: '',
+            competition: '甲级', stage: '淘汰赛', round: '1/4决赛',
+            opponent: '机械', venue: '', scoreFor: 2, scoreAgainst: 1,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2013-2014', date: '',
+            competition: '甲级', stage: '淘汰赛', round: '半决赛',
+            opponent: '环境', venue: '', scoreFor: 1, scoreAgainst: 3,
+            partial: true,
+            players: []
+        },
+
+        {
+            season: '2013-2014', date: '',
+            competition: '甲级', stage: '淘汰赛', round: '季军决赛',
+            opponent: '计算机', venue: '', scoreFor: 0, scoreAgainst: 3,
+            partial: true,
+            players: []
+        },
 
         /* 2014-2015 甲级 只有进球数据 */
         {
