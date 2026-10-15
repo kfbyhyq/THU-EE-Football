@@ -65,13 +65,13 @@ function getCompOrder() {
 
 const TEAM_META = {
     men: {
-        crestFallback: 'THU',
+        crestFallback: 'EE',
         crestImg: '电子系徽-周围透明.png',
         name: '清华电子男足',
         sub: 'THU EE FC · 男足'
     },
     women: {
-        crestFallback: 'THU',
+        crestFallback: 'EE',
         crestImg: '电子女足队徽-周围透明.png',
         name: '清华电子女足',
         sub: 'THU EE FC · 女足'
@@ -629,7 +629,7 @@ function renderSeasonFilter(containerId, current, onSelect) {
 
     container.innerHTML = options.map(s => {
         const label = s === 'all' ? '全部'
-            : s.replace(/(\d{2})(\d{2})-(\d{2})(\d{2})/, '$1-$2');
+            : s.replace(/(\d{2})(\d{2})-(\d{2})(\d{2})/, '$2-$4');
         const cls = s === current ? 'active' : '';
         return `<button type="button" class="${cls}" data-season="${s}">${label}</button>`;
     }).join('');
