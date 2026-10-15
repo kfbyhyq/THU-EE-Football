@@ -1,205 +1,223 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>清华电子足球数据中心</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清华电子足球数据中心</title>
 
-<!-- 关键背景色，避免动态加载 CSS 时出现白屏闪烁 -->
-<style>
-  html, body {
-    margin: 0;
-    background: #070c17;
-    color: #e6edf7;
-    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
-                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  }
-</style>
+    <!-- 关键背景色，避免动态加载 CSS 时出现白屏闪烁 -->
+    <style>
+        html,
+        body {
+            margin: 0;
+            background: #070c17;
+            color: #e6edf7;
+            font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+                "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        }
+    </style>
 
-<!--
+    <!--
   版本检测脚本：
   1. 用同步 XHR 拉取 version.json（带时间戳，绕过 HTTP 缓存）
   2. 若远端版本与本地记录不同 → 清空所有 qf_fc_* 缓存 → 带版本号强制刷新
   3. 若相同或首次访问 → 把版本号挂到 window.__QF_VERSION__，
      供下面动态加载 CSS / JS 时加上 ?v=xxx
 -->
-<script>
-(function () {
-  var VER_KEY = 'qf_fc_page_version';
-  var localVer = null;
-  try { localVer = localStorage.getItem(VER_KEY); } catch (e) {}
+    <script>
+        (function () {
+            var VER_KEY = 'qf_fc_page_version';
+            var localVer = null;
+            try { localVer = localStorage.getItem(VER_KEY); } catch (e) { }
 
-  var remoteVer = null;
-  try {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'version.json?t=' + Date.now(), false); // 同步
-    xhr.setRequestHeader('Cache-Control', 'no-cache');
-    xhr.send(null);
-    if (xhr.status === 200 || xhr.status === 0) {
-      var data = JSON.parse(xhr.responseText);
-      remoteVer = data && String(data.version);
-    }
-  } catch (e) {}
+            var remoteVer = null;
+            try {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'version.json?t=' + Date.now(), false); // 同步
+                xhr.setRequestHeader('Cache-Control', 'no-cache');
+                xhr.send(null);
+                if (xhr.status === 200 || xhr.status === 0) {
+                    var data = JSON.parse(xhr.responseText);
+                    remoteVer = data && String(data.version);
+                }
+            } catch (e) { }
 
-  // 版本变化 → 清缓存 + 强制刷新
-  if (remoteVer && localVer && localVer !== remoteVer) {
-    try {
-      Object.keys(localStorage).forEach(function (k) {
-        if (k.indexOf('qf_fc_') === 0) localStorage.removeItem(k);
-      });
-    } catch (e) {}
-    try { localStorage.setItem(VER_KEY, remoteVer); } catch (e) {}
-    location.replace(location.pathname + '?v=' + encodeURIComponent(remoteVer));
-    throw new Error('reload for new version');
-  }
+            // 版本变化 → 清缓存 + 强制刷新
+            if (remoteVer && localVer && localVer !== remoteVer) {
+                try {
+                    Object.keys(localStorage).forEach(function (k) {
+                        if (k.indexOf('qf_fc_') === 0) localStorage.removeItem(k);
+                    });
+                } catch (e) { }
+                try { localStorage.setItem(VER_KEY, remoteVer); } catch (e) { }
+                location.replace(location.pathname + '?v=' + encodeURIComponent(remoteVer));
+                throw new Error('reload for new version');
+            }
 
-  if (remoteVer) {
-    try { localStorage.setItem(VER_KEY, remoteVer); } catch (e) {}
-  }
+            if (remoteVer) {
+                try { localStorage.setItem(VER_KEY, remoteVer); } catch (e) { }
+            }
 
-  window.__QF_VERSION__ = remoteVer || String(Date.now());
-})();
-</script>
+            window.__QF_VERSION__ = remoteVer || String(Date.now());
+        })();
+    </script>
 
-<!-- 动态加载带版本号的 CSS -->
-<script>
-(function () {
-  var v = window.__QF_VERSION__;
-  var link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = 'styles.css?v=' + encodeURIComponent(v);
-  document.head.appendChild(link);
-})();
-</script>
+    <!-- 动态加载带版本号的 CSS -->
+    <script>
+        (function () {
+            var v = window.__QF_VERSION__;
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'styles.css?v=' + encodeURIComponent(v);
+            document.head.appendChild(link);
+        })();
+    </script>
 </head>
 
 <body data-gender="men">
-<div class="page">
+    <div class="page">
 
-  <header class="hero">
-    <div class="crest" id="crest">
-      <img id="crest-img" alt="队徽" />
-      <span class="crest-fallback" id="crest-text">THU</span>
-    </div>
-
-    <div class="hero-info">
-      <h1 id="team-name">清华电子男足</h1>
-      <p class="sub" id="team-sub">THU EE FC · 男足 · 2024 – 2025</p>
-    </div>
-
-    <div class="gender-switch" id="gender-switch">
-      <button type="button" class="active" data-gender="men">男足</button>
-      <button type="button" data-gender="women">女足</button>
-    </div>
-  </header>
-
-  <section class="overview" aria-label="赛季数据概览">
-    <div class="stat total">    <span class="label">已赛</span><span class="value" id="stat-total">0</span></div>
-    <div class="stat win">      <span class="label">胜</span>  <span class="value" id="stat-win">0</span></div>
-    <div class="stat draw">     <span class="label">平</span>  <span class="value" id="stat-draw">0</span></div>
-    <div class="stat loss">     <span class="label">负</span>  <span class="value" id="stat-loss">0</span></div>
-    <div class="stat goal">     <span class="label">进球</span><span class="value" id="stat-goals">0</span></div>
-    <div class="stat conceded"> <span class="label">失球</span><span class="value" id="stat-conceded">0</span></div>
-  </section>
-
-  <section class="tabs">
-    <input type="radio" name="tab" id="tab-matches" checked>
-    <input type="radio" name="tab" id="tab-players">
-
-    <div class="tab-nav">
-      <label for="tab-matches">比赛记录</label>
-      <label for="tab-players">球员数据</label>
-    </div>
-
-    <div class="panels">
-
-      <div class="panel panel-matches">
-        <div class="card">
-          <div class="card-head">
-            <h2>比赛记录</h2>
-            <div class="card-head-right">
-              <div class="season-filter" id="matches-season-filter"></div>
-              <span class="hint" id="matches-hint">数据加载中…</span>
+        <header class="hero">
+            <div class="crest" id="crest">
+                <img id="crest-img" alt="队徽" />
+                <span class="crest-fallback" id="crest-text">THU</span>
             </div>
-          </div>
-          <div class="table-wrap">
-            <table class="matches-table">
-              <thead>
-                <tr>
-                  <th>日期</th>
-                  <th>赛事</th>
-                  <th>对手</th>
-                  <th class="c">比分</th>
-                  <th class="c">结果</th>
-                  <th class="c">场地</th>
-                </tr>
-              </thead>
-              <tbody id="matches-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
 
-      <div class="panel panel-players">
-        <div class="card">
-          <div class="card-head">
-            <h2>球员赛季数据</h2>
-            <div class="card-head-right">
-              <div class="season-filter" id="players-season-filter"></div>
-              <span class="hint" id="players-hint">数据加载中…</span>
+            <div class="hero-info">
+                <h1 id="team-name">清华电子男足</h1>
+                <p class="sub" id="team-sub">THU EE FC · 男足 · 2024 – 2025</p>
             </div>
-          </div>
-          <div class="table-wrap">
-            <table class="players-table">
-              <thead>
-                <tr>
-                  <th class="c sortable" data-sort="shirt">号码</th>
-                  <th class="sortable" data-sort="name">球员</th>
-                  <th class="c sortable" data-sort="appearances">出场</th>
-                  <th class="c sortable" data-sort="starter">首发/替补 <span class="sort-mode"></span></th>
-                  <th class="c sortable" data-sort="minutes">出场时间</th>
-                  <th class="c sortable" data-sort="goals">进球</th>
-                  <th class="c sortable" data-sort="assists">助攻</th>
-                  <th class="c sortable" data-sort="ownGoals">乌龙球</th>
-                  <th class="c sortable" data-sort="yellow">黄牌</th>
-                  <th class="c sortable" data-sort="red">红牌</th>
-                </tr>
-              </thead>
-              <tbody id="players-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+
+            <div class="gender-switch" id="gender-switch">
+                <button type="button" class="active" data-gender="men">男足</button>
+                <button type="button" data-gender="women">女足</button>
+            </div>
+        </header>
+
+        <section class="overview" aria-label="赛季数据概览">
+            <div class="stat total"> <span class="label">已赛</span><span class="value" id="stat-total">0</span></div>
+            <div class="stat win"> <span class="label">胜</span> <span class="value" id="stat-win">0</span></div>
+            <div class="stat draw"> <span class="label">平</span> <span class="value" id="stat-draw">0</span></div>
+            <div class="stat loss"> <span class="label">负</span> <span class="value" id="stat-loss">0</span></div>
+            <div class="stat goal"> <span class="label">进球</span><span class="value" id="stat-goals">0</span></div>
+            <div class="stat conceded"> <span class="label">失球</span><span class="value" id="stat-conceded">0</span>
+            </div>
+        </section>
+
+        <section class="tabs">
+            <input type="radio" name="tab" id="tab-matches" checked>
+            <input type="radio" name="tab" id="tab-players">
+
+            <div class="tab-nav">
+                <label for="tab-matches">比赛记录</label>
+                <label for="tab-players">球员数据</label>
+            </div>
+
+            <div class="panels">
+
+                <div class="panel panel-matches">
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>比赛记录</h2>
+                            <div class="card-head-right">
+                                <div class="season-filter" id="matches-season-filter"></div>
+                                <span class="hint" id="matches-hint">数据加载中…</span>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="matches-table">
+                                <thead>
+                                    <tr>
+                                        <th>日期</th>
+                                        <th>赛事</th>
+                                        <th>对手</th>
+                                        <th class="c">比分</th>
+                                        <th class="c">结果</th>
+                                        <th class="c">场地</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="matches-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-players">
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>球员赛季数据</h2>
+                            <div class="card-head-right">
+                                <div class="season-filter" id="players-season-filter"></div>
+                                <span class="hint" id="players-hint">数据加载中…</span>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="players-table">
+                                <thead>
+                                    <tr>
+                                        <th class="c sortable" data-sort="shirt">号码</th>
+                                        <th class="sortable" data-sort="name">球员</th>
+                                        <th class="c sortable" data-sort="appearances">出场</th>
+                                        <th class="c sortable" data-sort="starter">首发/替补 <span class="sort-mode"></span>
+                                        </th>
+                                        <th class="c sortable" data-sort="minutes">出场时间</th>
+                                        <th class="c sortable" data-sort="goals">进球</th>
+                                        <th class="c sortable" data-sort="assists">助攻</th>
+                                        <th class="c sortable" data-sort="ownGoals">乌龙球</th>
+                                        <th class="c sortable" data-sort="yellow">黄牌</th>
+                                        <th class="c sortable" data-sort="red">红牌</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="players-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <p class="foot" id="foot-note">数据加载中…</p>
 
     </div>
-  </section>
 
-  <p class="foot" id="foot-note">数据加载中…</p>
+    <!-- 比赛战报弹窗 -->
+    <div class="report-lightbox" id="report-lightbox" aria-hidden="true">
+        <button type="button" class="report-close" id="report-close" aria-label="关闭战报">×</button>
+        <div class="report-counter" id="report-counter"></div>
+        <button type="button" class="report-nav report-nav-prev" id="report-prev" aria-label="上一张">‹</button>
+        <button type="button" class="report-nav report-nav-next" id="report-next" aria-label="下一张">›</button>
+        <div class="report-stage" id="report-stage">
+            <img class="report-img" id="report-img" alt="比赛战报" />
+            <div class="report-spinner" id="report-spinner"></div>
+            <div class="report-error" id="report-error">战报加载失败</div>
+        </div>
+    </div>
 
-</div>
-
-<!-- 动态加载带版本号的 JS（按顺序） -->
-<script>
-(function () {
-  var v = window.__QF_VERSION__;
-  var files = [
-    'data-men.js',
-    'data-women.js',
-    'data-api.js',
-    'script.js'
-  ];
-  var i = 0;
-  function next() {
-    if (i >= files.length) return;
-    var s = document.createElement('script');
-    s.src = files[i] + '?v=' + encodeURIComponent(v);
-    s.async = false;
-    s.onload = function () { i++; next(); };
-    s.onerror = function () { i++; next(); };
-    document.body.appendChild(s);
-  }
-  next();
-})();
-</script>
+    <!-- 动态加载带版本号的 JS（按顺序） -->
+    <script>
+        (function () {
+            var v = window.__QF_VERSION__;
+            var files = [
+                'data-men.js',
+                'data-women.js',
+                'data-api.js',
+                'script.js'
+            ];
+            var i = 0;
+            function next() {
+                if (i >= files.length) return;
+                var s = document.createElement('script');
+                s.src = files[i] + '?v=' + encodeURIComponent(v);
+                s.async = false;
+                s.onload = function () { i++; next(); };
+                s.onerror = function () { i++; next(); };
+                document.body.appendChild(s);
+            }
+            next();
+        })();
+    </script>
 </body>
+
 </html>
