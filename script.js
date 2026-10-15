@@ -52,15 +52,15 @@ function getCompOrder() {
 const TEAM_META = {
   men: {
     crestFallback: 'THU',
-    crestImg:      'crest-men.png',
+    crestImg:      '电子系徽-周围透明.png',
     name:          '清华电子男足',
-    sub:           'TSINGHUA ELECTRONICS FC · 男足 · 2024 – 2025'
+    sub:           'THU EE FC · 男足 · 2026 – 2027'
   },
   women: {
     crestFallback: 'THU',
-    crestImg:      'crest-women.png',
+    crestImg:      '电子女足队徽-周围透明.png',
     name:          '清华电子女足',
-    sub:           'TSINGHUA ELECTRONICS LADIES FC · 女足 · 2024 – 2025'
+    sub:           'THU EE FC · 女足 · 2026 – 2027'
   }
 };
 
@@ -83,13 +83,13 @@ const TEAM_META = {
 const COLUMN_TITLE_OVERRIDES = {
   men: {
     goals:       '',
-    assists:     '',
+    assists:     '统计数据自 2016年3月7日 起',
     appearances: '',
     cards:       ''
   },
   women: {
     goals:       '',
-    assists:     '暂无助攻数据',
+    assists:     '统计数据自 2023年10月22日 起',
     appearances: '',
     cards:       ''
   }
@@ -677,17 +677,20 @@ function renderMatches() {
       ? `<span class="venue ${venueClass}">${m.venue}</span>`
       : `<span class="venue-empty">—</span>`;
 
+    // 日期只取 YYYY-MM-DD 部分，去掉"几点几分"
+    const dateOnly = String(m.date).split(' ')[0];
+
     return `
       <tr>
-        <td class="date">${m.date}</td>
+        <td class="date">${dateOnly}</td>
         <td>
           <span class="comp">${m.competition}</span>
           <span class="round">${stageText}${roundText}</span>
         </td>
         <td class="opponent">${m.opponent}</td>
-        <td class="c">${venueHtml}</td>
         <td class="c score">${formatScore(m)}</td>
         <td class="c"><span class="badge ${result}">${resultText(result)}</span></td>
+        <td class="c">${venueHtml}</td>
       </tr>
     `;
   }).join('') || `<tr><td colspan="6" class="empty">该赛季暂无比赛记录</td></tr>`;
@@ -960,15 +963,19 @@ function loadCrest(meta) {
   imgEl.onerror = null;
   imgEl.style.display = 'none';
   textEl.style.display = 'grid';
+  imgEl.parentElement.classList.remove('has-crest-img');
   imgEl.removeAttribute('src');
 
   imgEl.onload = () => {
     imgEl.style.display = 'block';
     textEl.style.display = 'none';
+    // 有真实图片时去掉橙/粉底色与阴影，只保留圆角和描边
+    imgEl.parentElement.classList.add('has-crest-img');
   };
   imgEl.onerror = () => {
     imgEl.style.display = 'none';
     textEl.style.display = 'grid';
+    imgEl.parentElement.classList.remove('has-crest-img');
   };
 
   imgEl.src = meta.crestImg;

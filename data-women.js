@@ -449,7 +449,7 @@
             competition: '马女', stage: '小组赛', round: '第3轮',
             opponent: '法学', venue: '紫操', scoreFor: 1, scoreAgainst: 0,
             players: [
-                P('周芙瑶', 5, { yellow: 1 }),
+                P('周芙瑶', 5, { assists: 1, yellow: 1 }),
                 P('韦艺', 7),
                 P('王睿', 8, { subOn: 60, yellow: 1 }),
                 P('杨越云', 10, { goals: 1, subOff: 60 }),

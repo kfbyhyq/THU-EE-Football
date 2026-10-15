@@ -2,8 +2,8 @@
    清华电子 · 球队数据中心
    ------------------------------------------------------------
    主题色由 body[data-gender] 切换：
-     男足 → 橙色（#fb923c / 球衣色）
-     女足 → 浅蓝（#38bdf8 / 球衣色）
+  男足 → 橙色（#fb923c / 球衣色）
+  女足 → 浅粉（#f472b6 / 球衣色）
    ============================================================ */
 
 *,
@@ -35,12 +35,30 @@
 }
 
 body[data-gender="women"] {
-  --accent:      #38bdf8;
-  --accent-deep: #0284c7;
-  --accent-glow: rgba(56, 189, 248, 0.35);
-  --accent-bg-1: rgba(56, 189, 248, 0.16);
-  --accent-bg-2: rgba(56, 189, 248, 0.06);
-  --accent-text: #042233;
+  --accent:      #f472b6;
+  --accent-deep: #db2777;
+  --accent-glow: rgba(244, 114, 182, 0.32);
+  --accent-bg-1: rgba(244, 114, 182, 0.15);
+  --accent-bg-2: rgba(244, 114, 182, 0.05);
+  --accent-text: #3a0a21;
+}
+
+/* 加载了真实队徽图片后，去掉容器的主题底色、阴影、圆角和描边 */
+.crest.has-crest-img {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.crest.has-crest-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.crest.has-crest-img .crest-fallback {
+  display: none;
 }
 
 html { -webkit-text-size-adjust: 100%; }
@@ -638,14 +656,11 @@ th.sortable.sort-active {
   .tab-nav { width: 100%; }
   .tab-nav label { flex: 1; padding: 9px 10px; text-align: center; }
 
-  .card-head { align-items: flex-start; flex-direction: column; }
+  .card-head { align-items: center; flex-direction: row; }
   .card-head-right { width: 100%; justify-content: space-between; }
-  .season-filter { flex-wrap: wrap; }
 
   .gender-switch { width: 100%; }
   .gender-switch button { flex: 1; }
-
-  thead th, tbody td { padding: 11px 14px; }
 }
 
 /* ========== 比分中的点球大战 ========== */
@@ -730,32 +745,37 @@ body[data-gender="women"] .assists {
 
   /* ---------- 头部 ---------- */
   .hero {
-    padding: 16px 18px;
-    gap: 14px;
+    flex-wrap: nowrap;       /* logo 与文字保持同一行 */
+    align-items: center;
+    padding: 14px 16px;
+    gap: 12px;
     border-radius: 16px;
   }
 
+  .hero-info {
+    min-width: 0;           /* 允许在 flex 中收缩并被截断 */
+    flex: 1 1 auto;
+  }
+
   .crest {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
-    font-size: 17px;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    font-size: 15px;
+    flex: none;
   }
 
-  .hero-info h1 { font-size: 19px; }
-  .hero-info .sub { font-size: 11px; }
+  .hero-info h1 { font-size: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hero-info .sub { font-size: 10.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  /* 性别切换通栏 */
   .gender-switch {
-    width: 100%;
-    padding: 5px;
+    width: auto;
+    flex: none;
+    padding: 3px;
+    border-radius: 11px;
   }
 
-  .gender-switch button {
-    flex: 1;
-    padding: 10px 8px;
-    font-size: 14px;
-  }
+  .gender-switch button { padding: 7px 14px; font-size: 12px; border-radius: 8px; }
 
   /* ---------- 概览卡片 3×2 ---------- */
   .overview {
@@ -835,18 +855,33 @@ body[data-gender="women"] .assists {
     font-size: 12px;
   }
 
-  /* ---------- 表格基本尺寸 ---------- */
-  table { font-size: 13px; }
+  /* ---------- 表格基本尺寸（尽量收窄列宽） ---------- */
+  table { font-size: 12.5px; }
 
   thead th {
-    padding: 9px 12px;
+    padding: 8px 8px;
     font-size: 10px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
   }
 
   tbody td {
-    padding: 9px 12px;
+    padding: 8px 8px;
   }
+
+  /* 比赛记录表收窄：去掉时间后日期列可以很窄 */
+  .matches-table { min-width: 560px; }
+  .matches-table .date { font-size: 11.5px; padding-right: 4px; }
+  .matches-table .round { font-size: 10px; }
+
+  /* 场地标签在窄列里收缩：只保留圆点 + 场地名，去掉多余留白 */
+  .venue {
+    padding: 2px 7px;
+    font-size: 11px;
+  }
+  .venue-empty { padding: 2px 7px; font-size: 11px; }
+
+  /* 球员数据表收窄 */
+  .players-table { min-width: 760px; }
 
   /* ---------- 比赛记录：固定“日期”列 ---------- */
   .matches-table thead th:first-child,
