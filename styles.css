@@ -77,7 +77,6 @@ body[data-gender="women"] {
 /* 加载了真实队徽图片后：去掉主题底色、圆角、描边 */
 .crest.has-crest-img {
   background: transparent;
-  border-radius: 0;
   box-shadow: none;
 }
 
@@ -88,8 +87,14 @@ body[data-gender="women"] {
   object-fit: contain;   /* 图片可能不是正方形，contain 不裁切 */
 }
 
+/* fallback 文字：有图片时隐藏 */
 .crest.has-crest-img .crest-fallback {
   display: none;
+}
+
+/* 没加载到图片时：必须显示文字，且不能让容器透明 */
+.crest:not(.has-crest-img) .crest-fallback {
+  display: grid;
 }
 
 /* ========== 基础布局 ========== */
