@@ -48,6 +48,18 @@
             players: []
         },
 
+        {
+            season: '2015-2016', date: '2016-03-27 12:15',
+            competition: '马女', stage: '小组赛', round: '第4轮',
+            opponent: '车辆', venue: '北操', scoreFor: 8, scoreAgainst: 0,
+            partial: true,
+            players: [
+                { name: '穆雨佳', goals: 6 },
+                { name: '赵雅娟', goals: 1 },
+                { name: '石莱茜', goals: 1 }
+            ]
+        },
+
         /* 2016-2017 */
         {
             season: '2016-2017', date: '2017-03-05 14:15',
