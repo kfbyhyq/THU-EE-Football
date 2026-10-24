@@ -110,7 +110,7 @@
             season: '2001-2002', date: '2002',
             competition: '甲级', stage: '淘汰赛', round: '半决赛',
             opponent: '自动化', venue: '', scoreFor: 2, scoreAgainst: 2,
-            extraTime: true, penaltyFor: 5, penaltyAgainst: 4, 
+            extraTime: true, penaltyFor: 5, penaltyAgainst: 4,
             partial: true,
             players: [
                 { name: '张丹', goals: 1 },
@@ -1353,6 +1353,28 @@
                 P('臧彦恒', 26, { subOn: 80, yellow: 1 }),
                 P('郑天翔', 38, { subOff: 67, yellow: 1 }),
                 P('汤怀智', 41)
+            ]
+        },
+
+        /* 2026-2027 */
+        {
+            season: '2026-2027', date: '2026-10-24 19:00',
+            competition: '甲级', stage: '小组赛', round: '第1轮',
+            opponent: '建筑', venue: '紫操', scoreFor: 3, scoreAgainst: 2,
+            players: [
+                P('程宇灏', 1),
+                P('王宇翀', 5),
+                P('殷传承', 6),
+                P('李道逸', 7, { goals: 1, yellow: 1 }),
+                P('张果然', 10, { goals: 1 }),
+                P('解天昊', 11, { assists: 1, subOff: 80 }),
+                P('任泽屹', 17),
+                P('张一鸣', 21, { yellow: 1 }),
+                P('朱昊臣', 25, { subOff: 69 }),
+                P('苏图克布格拉·帕尔哈提', 32, { subOn: 80 }),
+                P('汤怀智', 41, { goals: 1, assists: 1, penalties: 1 }),
+                P('朝越', 57, { yellow: 1 }),
+                P('葛深辉', 99, { subOn: 69 })
             ]
         }
     ];
