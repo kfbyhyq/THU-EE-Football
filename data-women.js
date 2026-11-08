@@ -558,6 +558,26 @@
                 P('纪天然', 72),
                 P('曾锦薇', 78)
             ]
+        },
+
+        /* 2026-2027 */
+        {
+            season: '2026-2027', date: '2026-11-08 08:00',
+            competition: '马女', stage: '循环赛', round: '第1轮',
+            opponent: '探微', venue: '西操', scoreFor: 2, scoreAgainst: 0,
+            players: [
+                P('张乐', 6, { subOn: 56 }),
+                P('李锦轩', 7, { goals: 1, assists: 1, subOff: 31 }),
+                P('杨佳宜', 8, { yellow: 1, subOff: 56 }),
+                P('韦艺', 9, { subOn: 31 }),
+                P('秦若桐', 16, { subOff: 31 }),
+                P('朱芮瑶', 17),
+                P('占璟青', 19, { subOn: 39 }),
+                P('王贺章', 24, { goals: 1, subOff: 39 }),
+                P('王向团', 26),
+                P('纪天然', 72),
+                P('夏淑茜', 77, { subOn: 31 })
+            ]
         }
     ];
 

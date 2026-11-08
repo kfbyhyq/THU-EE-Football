@@ -1376,6 +1376,30 @@
                 P('朝越', 57, { yellow: 1 }),
                 P('葛深辉', 99, { subOn: 69 })
             ]
+        },
+
+        {
+            season: '2026-2027', date: '2026-11-08 12:00',
+            competition: '甲级', stage: '小组赛', round: '第2轮',
+            opponent: '土水', venue: '紫操', scoreFor: 4, scoreAgainst: 0,
+            players: [
+                P('程宇灏', 1),
+                P('王宇翀', 5),
+                P('蔡沅钊', 3, { subOn: 76 }),
+                P('殷传承', 6, { subOff: 76 }),
+                P('李道逸', 7, { goals: 3 }),
+                P('张果然', 10),
+                P('解天昊', 11, { yellow: 1, subOff: 67 }),
+                P('丁宇皓', 12, { subOn: 79 }),
+                P('任泽屹', 17),
+                P('张一鸣', 21),
+                P('侯瑞珺', 22, { assists: 1, subOn: 67 }),
+                P('朱昊臣', 25, { subOff: 67 }),
+                P('达里奥', 44, { subOn: 67 }),
+                P('朝越', 57, { assists: 1, subOff: 79 }),
+                P('吴宇哲', 66, { subOn: 76 }),
+                P('葛深辉', 99, { assists: 1, subOff: 76 })
+            ]
         }
     ];
 
